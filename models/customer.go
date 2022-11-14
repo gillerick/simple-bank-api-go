@@ -11,9 +11,9 @@ type Customer struct {
 	UserId    uuid.UUID `gorm:"not null;unique;type:uuid"`
 	FirstName string
 	LastName  string
-	Email     string  `gorm:"not null;unique"`
-	Account   Account `gorm:"foreignKey:user_id;references:user_id"`
-	Card      []Card  `gorm:"foreignKey:user_id;references:user_id"`
+	Email     string    `gorm:"not null;unique"`
+	Account   []Account `gorm:"foreignKey:user_id;references:user_id"`
+	Card      []Card    `gorm:"foreignKey:user_id;references:user_id"`
 
 	gorm.Model
 }

@@ -1,0 +1,9 @@
+app:
+  host: "127.0.0.1"
+  port: "8080"
+database:
+  user: "test"
+  password: "secret"
+  host: "127.0.0.1"
+  port: "5432"
+  dbname: "simple-bank-account"
