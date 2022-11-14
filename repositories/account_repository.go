@@ -9,7 +9,7 @@ import (
 
 type AccountRepository interface {
 	CreateAccount(userId uuid.UUID) (*models.Account, error)
-	WithdrawAmount(userId uuid.UUID, amount float64) (float64, error)
+	WithdrawFromAccount(userId uuid.UUID, amount float64) (float64, error)
 	TopUpAccount(userId uuid.UUID, amount float64) (float64, error)
 	UpdateBalance(amount float64, userId uuid.UUID) (*models.Account, error)
 }
@@ -23,8 +23,8 @@ func (r Repository) CreateAccount(userId uuid.UUID) (*models.Account, error) {
 	return &newAccount, nil
 }
 
-// WithdrawAmount deducts a specified amount from an account in a transactional operation and returns the new account balance or error
-func (r Repository) WithdrawAmount(userId uuid.UUID, amount float64) (float64, error) {
+// WithdrawFromAccount deducts a specified amount from an account in a transactional operation and returns the new account balance or error
+func (r Repository) WithdrawFromAccount(userId uuid.UUID, amount float64) (float64, error) {
 	//Perform prerequisite checks before a withdrawal (1) account must have sufficient funds (2) Withdrawal amount is greater than the set minimum
 
 	//1. Find the account of the specified user

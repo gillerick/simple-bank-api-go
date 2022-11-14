@@ -33,7 +33,6 @@ func (s *Service) Run() error {
 	config := configs.GetConfig(*ymlConfig)
 
 	//Setup a database repositories connection
-	//TODo: Provide repositories configs
 	pgDb, err := database.NewConnection(config.DB)
 	if err != nil {
 		log.Fatal("could not establish connection with the repositories")
@@ -50,7 +49,7 @@ func (s *Service) Run() error {
 
 	//Setup services
 	//ToDo: Inject repository into services
-	accountService := services.NewAccountService()
+	accountService := services.NewAccountService(database)
 	customerService := services.NewCustomerService()
 
 	//Set up HTTP handler and router
