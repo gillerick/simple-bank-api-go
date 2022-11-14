@@ -8,8 +8,11 @@ import (
 type AccountStatus string
 
 const (
-	StatusActive   = AccountStatus("ACTIVE")
-	StatusInactive = AccountStatus("INACTIVE")
+	StatusActive            = AccountStatus("ACTIVE")
+	StatusInactive          = AccountStatus("INACTIVE")
+	StatusSuspended         = AccountStatus("SUSPENDED")
+	MinimumWithdrawalAmount = 50 // Least amount that can be withdrawn from an account
+	MinimumTopUpAmount      = 5  //Least amount that can be deposited into an account
 )
 
 // Account entity definition
