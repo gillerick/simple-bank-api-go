@@ -36,7 +36,7 @@ func (s *Service) Run() error {
 	//Setup a database connection
 	pgDb, err := database.NewConnection(config.DB)
 	if err != nil {
-		log.Fatal("could not establish connection with the repositories")
+		log.Fatal("could not establish connection with the database")
 	}
 
 	//Set up database
