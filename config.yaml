@@ -6,4 +6,4 @@ database:
   password: "secret"
   host: "127.0.0.1"
   port: "5432"
-  dbname: "simple-bank-account"
+  dbname: "simple-bank-account-db"

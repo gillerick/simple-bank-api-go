@@ -49,7 +49,7 @@ database:
 
 #### 3. Starting Docker compose
 
-Run the command below and wait for magic to happen.
+Run the command below to set up the dependencies and database.
 
 ```bash
 $ docker-compose up

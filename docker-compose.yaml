@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: simple-bank-account-db
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8000:8000"
