@@ -7,10 +7,11 @@ import (
 
 // Card entity definition
 type Card struct {
+	CardId     uuid.UUID `gorm:"type:uuid;unique"`
 	FirstName  string
 	LastName   string
 	CardNumber string
-	UserId     uuid.UUID
+	UserId     uuid.UUID `gorm:"type:uuid"`
 	gorm.Model
 }
 

@@ -7,7 +7,7 @@ import (
 )
 
 type AccountsHandler struct {
-	accountsService services.AccountService
+	accountsService services.AccountsService
 }
 
 type AccountsController interface {
@@ -17,6 +17,6 @@ type AccountsController interface {
 	UpdateBalance(amount float64, userId uuid.UUID) (*models.Account, error)
 }
 
-func NewAccountsController(accountsService services.AccountService) *AccountsHandler {
+func NewAccountsController(accountsService services.AccountsService) *AccountsHandler {
 	return &AccountsHandler{accountsService: accountsService}
 }

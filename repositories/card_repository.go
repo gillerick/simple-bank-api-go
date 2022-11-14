@@ -9,7 +9,7 @@ import (
 
 // CardRepository exposes methods for performing customer-related db operations
 type CardRepository interface {
-	SaveCard(card models.Card) (models.Card, error)
+	SaveCard(cardId models.Card) (models.Card, error)
 	DeleteCard(customer models.Card) error
 }
 
