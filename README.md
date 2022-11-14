@@ -21,6 +21,7 @@ and multiple Debit/Credit card numbers. The service supports account top-ups and
 - The service uses a `PostgreSQL` database for data persistence and has three tables (entities): (1) _customer_ table (2)
   _customer_account_ table (3) _customer_card_ table
 - The relationship between the three entities is as shown below:
+- More details of the service architecture and design can be found in the design [document](https://docs.google.com/document/d/1u1FJNDupqOmITXbt6NJswYqu67VOz-SdqxSEi9DMZrc/edit?usp=sharing)
 
 ![img_1.png](img_1.png)
 
@@ -75,6 +76,8 @@ INFO[0000] server listening on address: 127.0.0.1, port: 8080  source="server.go
 
 #### API Usage
 
+A description of the API and endpoints can be found in the design [documentation](https://docs.google.com/document/d/1u1FJNDupqOmITXbt6NJswYqu67VOz-SdqxSEi9DMZrc/edit?usp=sharing) under API section.
+
 ##### 1. Creating a customer
 
 Curl request example
@@ -97,9 +100,8 @@ Response example
   "first_name": "Gill",
   "last_name": "Erick",
   "email": "ogayogill95@gmail.com",
-  "Account": null,
-  "Card": null,
-  "ID": 1,
+  "Accounts": null,
+  "Cards": null,
   "CreatedAt": "2022-11-14T22:33:48.794892+03:00",
   "UpdatedAt": "2022-11-14T22:33:48.794892+03:00",
   "DeletedAt": null
@@ -137,7 +139,6 @@ Response example
   "Status": "ACTIVE",
   "AvailableBalance": 0,
   "UserId": "43e81839-a159-4979-badf-cd0a96e3473c",
-  "ID": 1,
   "CreatedAt": "2022-11-14T22:55:46.292318+03:00",
   "UpdatedAt": "2022-11-14T22:55:46.292318+03:00",
   "DeletedAt": null

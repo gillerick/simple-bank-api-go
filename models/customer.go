@@ -12,8 +12,8 @@ type Customer struct {
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
 	Email     string    `gorm:"not null;unique" json:"email"`
-	Account   []Account `gorm:"foreignKey:user_id;references:user_id"`
-	Card      []Card    `gorm:"foreignKey:user_id;references:user_id"`
+	Accounts  []Account `gorm:"foreignKey:user_id;references:user_id"`
+	Cards     []Card    `gorm:"foreignKey:user_id;references:user_id"`
 
 	gorm.Model // embeds created_at, updated_at, deleted_at
 }
