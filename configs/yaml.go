@@ -27,7 +27,7 @@ type PgDbConfig struct {
 // YamlConfig maps the configuration in the yaml file into a struct
 type YamlConfig struct {
 	App        SimpleBankAccount `yaml:"app"`
-	PgDatabase PgDbConfig        `yaml:"repositories"`
+	PgDatabase PgDbConfig        `yaml:"database"`
 }
 
 func ReadYaml(path string) *YamlConfig {

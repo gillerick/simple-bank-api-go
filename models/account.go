@@ -17,7 +17,6 @@ const (
 
 // Account entity definition
 type Account struct {
-	Id               uuid.UUID
 	Status           AccountStatus `gorm:"not null;default:ACTIVE"`
 	AvailableBalance float64
 	UserId           uuid.UUID

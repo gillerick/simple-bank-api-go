@@ -18,7 +18,11 @@ and multiple Debit/Credit card numbers. The service supports account top-ups and
   responsibility is to represent a customer's bank account details and status (3) **A Customer Card** whose main
   responsibility
   is to represent a customer's bank cards
-- The service uses a `PostgreSQL` database for data persistence.
+- The service uses a `PostgreSQL` database for data persistence and has three tables (entities): (1) customer (2)
+  account (3) customer_card
+- The relationship between the three entities is as shown below:
+
+![img.png](img.png)
 
 ### Installation, Building & Testing
 
@@ -59,6 +63,14 @@ $ docker-compose up
 
 ```bash
 make run
+```
+
+If you see the logs below, your `Simple Bank Account` service was successfully set up.
+
+```bash
+INFO[0000] running db migrations                         source="migrations.go:10"
+INFO[0000] db migrations ran successfully                source="migrations.go:17"
+INFO[0000] server listening on address: 127.0.0.1, port: 8080  source="server.go:23"
 ```
 
 #### API Usage

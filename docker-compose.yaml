@@ -3,7 +3,7 @@ version: '3'
 services:
   postgresql:
     image: postgres
-    restart: always
+    restart: on-failure
     environment:
       POSTGRES_DB: simple-bank-account-db
       POSTGRES_USER: test
@@ -13,6 +13,6 @@ services:
 
   adminer:
     image: adminer
-    restart: always
+    restart: on-failure
     ports:
       - "8000:8000"
