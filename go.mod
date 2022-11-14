@@ -3,6 +3,7 @@ module simple-bank-account
 go 1.18
 
 require (
+	github.com/ggwhite/go-masker v1.0.9
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.8.0
 	github.com/jackc/pgconn v1.12.1
