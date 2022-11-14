@@ -8,7 +8,7 @@ import (
 type DataStore interface {
 	CreateAccount(userId uuid.UUID, firstName string, LastName string) (*models.Account, error)
 	WithdrawAmount(amount float64)
-	DepositAmount(amount float64)
+	TopUpAccount(amount float64)
 	UpdateBalance(amount float64, userId uuid.UUID) (*models.Account, error)
 }
 

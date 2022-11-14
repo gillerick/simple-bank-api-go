@@ -11,13 +11,13 @@ import (
 
 // CustomerRepository exposes methods for performing customer-related db operations
 type CustomerRepository interface {
-	Add(models.Customer) (models.Customer, error)
+	Save(models.Customer) (models.Customer, error)
 	FindByUserId(customerId uuid.UUID) (models.Customer, error)
 	Delete(customer models.Customer) error
 }
 
-// Add creates a new customer if they don't already exist in the database
-func (r Repository) Add(customer models.Customer) (models.Customer, error) {
+// Save creates a new customer if they don't already exist in the database
+func (r Repository) Save(customer models.Customer) (models.Customer, error) {
 	result := r.db.pg.Model(models.Customer{}).Create(&customer)
 	if err := result.Error; err != nil {
 		// we check if the error is a postgres unique constraint violation

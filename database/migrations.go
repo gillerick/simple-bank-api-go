@@ -8,7 +8,7 @@ import (
 
 func (d *DatabaseHandler) Migrate(pg *gorm.DB) error {
 	log.Info("running db migrations")
-	//ToDo: Add card table
+	//ToDo: Save card table
 	err := d.pg.AutoMigrate(models.Account{}, models.Account{}, models.Card{})
 	if err != nil {
 		log.Fatalf("could not run db migrations")
