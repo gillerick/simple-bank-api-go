@@ -12,6 +12,7 @@ const (
 	StatusInactive = AccountStatus("INACTIVE")
 )
 
+// Account entity definition
 type Account struct {
 	Id               uuid.UUID
 	Status           AccountStatus `gorm:"not null;default:ACTIVE"`

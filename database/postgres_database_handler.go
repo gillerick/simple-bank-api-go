@@ -12,7 +12,11 @@ type DatabaseHandler struct {
 	pg *gorm.DB
 }
 
-//ToDo: Expose database operations as interfaces
+type Repository struct {
+	db *DatabaseHandler
+}
+
+//ToDo: Expose db operations as interfaces
 //1. Withdraw amount
 //2. top up account
 
@@ -41,14 +45,14 @@ func (d *DatabaseHandler) WithdrawAmount(userId uuid.UUID, amount float64) error
 
 }
 
-func (d *DatabaseHandler) CreateAccount(userId uuid.UUID, firstName string, LastName string) (*models.Account, error) {
-	newAccount := InitializeAccount(userId)
-	err := d.pg.Model(&models.Account{}).FirstOrCreate(&newAccount)
-	if err != nil {
-		return nil, fmt.Errorf("error creating user account %v", err)
-	}
-	return &newAccount, nil
-}
+//func (d *DatabaseHandler) CreateAccount(userId uuid.UUID, firstName string, LastName string) (*models.Account, error) {
+//	newAccount := InitializeAccount(userId)
+//	err := d.pg.Model(&models.Account{}).FirstOrCreate(&newAccount)
+//	if err != nil {
+//		return nil, fmt.Errorf("error creating user account %v", err)
+//	}
+//	return &newAccount, nil
+//}
 
 func (d *DatabaseHandler) TopUpAccount(amount float64) {
 

@@ -1,4 +1,4 @@
-package simple_bank_account
+package main
 
 import (
 	"fmt"

@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Card entity definition
 type Card struct {
 	FirstName  string
 	LastName   string
