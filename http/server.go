@@ -1,8 +1,11 @@
 package http
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/prometheus/common/log"
 	"net/http"
+	"simple-bank-account/configs"
 	"time"
 )
 
@@ -16,12 +19,13 @@ func (s *Server) Run() error {
 }
 
 // NewServer sets up a new server using the specified configurations
-func NewServer() *Server {
-	//log.Info("server started")
+func NewServer(config configs.App) *Server {
+	log.Infof("server listening on address: %s, port: %s", config.Host, config.Port)
 	r := mux.NewRouter()
 
-	//TODO: add configurations
-	address := "8080"
+	//ToDo: Setup routes
+
+	address := fmt.Sprintf("%s:%s", config.Host, config.Port)
 	server := &http.Server{
 		Handler:      r,
 		Addr:         address,
