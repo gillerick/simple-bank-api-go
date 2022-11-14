@@ -1,4 +1,4 @@
-package postgres
+package database
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func NewConnection(config configs.Database) (*gorm.DB, error) {
 		config.User, config.Password, config.Host, config.Port, config.DBName)
 	db, err := gorm.Open(postgres.Open(dbDSN), &gorm.Config{})
 	if err != nil {
-		return nil, fmt.Errorf("could not create a database connection %v", err)
+		return nil, fmt.Errorf("could not create a repositories connection %v", err)
 	}
 	return db, nil
 }

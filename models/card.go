@@ -23,7 +23,7 @@ func obfuscateCardNumber(cardNumber string) string {
 	return cardNumber
 }
 
-// BeforeCreate is a hook that obfuscates a customer's card number before creation in the database
+// BeforeCreate is a hook that obfuscates a customer's card number before creation in the repositories
 func (c *Card) BeforeCreate(tx *gorm.DB) error {
 	c.CardNumber = obfuscateCardNumber(c.CardNumber)
 	return nil

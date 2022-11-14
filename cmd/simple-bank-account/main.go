@@ -8,7 +8,7 @@ import (
 	"simple-bank-account/configs"
 	"simple-bank-account/database"
 	"simple-bank-account/http"
-	"simple-bank-account/postgres"
+	"simple-bank-account/repositories"
 	"simple-bank-account/services"
 	"syscall"
 )
@@ -32,20 +32,20 @@ func (s *Service) Run() error {
 	ymlConfig := configs.ReadYaml("")
 	config := configs.GetConfig(*ymlConfig)
 
-	//Setup a postgres database connection
-	//TODo: Provide database configs
-	pgDb, err := postgres.NewConnection(config.DB)
+	//Setup a database repositories connection
+	//TODo: Provide repositories configs
+	pgDb, err := database.NewConnection(config.DB)
 	if err != nil {
-		log.Fatal("could not establish connection with the database")
+		log.Fatal("could not establish connection with the repositories")
 	}
 
-	//Setup database
-	database := database.NewDatabaseHandler(pgDb)
+	//Setup repositories
+	database := repositories.NewDatabaseHandler(pgDb)
 
-	//Run database migrations
+	//Run repositories migrations
 	err = database.Migrate(pgDb)
 	if err != nil {
-		return fmt.Errorf("database migrations failed: %w", err)
+		return fmt.Errorf("repositories migrations failed: %w", err)
 	}
 
 	//Setup services

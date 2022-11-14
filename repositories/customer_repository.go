@@ -1,4 +1,4 @@
-package database
+package repositories
 
 import (
 	"errors"
@@ -11,16 +11,16 @@ import (
 
 // CustomerRepository exposes methods for performing customer-related db operations
 type CustomerRepository interface {
-	Save(models.Customer) (models.Customer, error)
-	FindByUserId(customerId uuid.UUID) (models.Customer, error)
-	Delete(customer models.Customer) error
+	SaveCustomer(models.Customer) (models.Customer, error)
+	FindCustomerByUserId(customerId uuid.UUID) (models.Customer, error)
+	DeleteCustomer(customer models.Customer) error
 }
 
-// Save creates a new customer if they don't already exist in the database
-func (r Repository) Save(customer models.Customer) (models.Customer, error) {
+// SaveCustomer creates a new customer if they don't already exist in the repositories
+func (r Repository) SaveCustomer(customer models.Customer) (models.Customer, error) {
 	result := r.db.pg.Model(models.Customer{}).Create(&customer)
 	if err := result.Error; err != nil {
-		// we check if the error is a postgres unique constraint violation
+		// we check if the error is a database unique constraint violation
 		if err, ok := err.(*pgconn.PgError); ok && err.Code == "23505" {
 			return customer, errors.New("customer already exists")
 		}
@@ -29,8 +29,8 @@ func (r Repository) Save(customer models.Customer) (models.Customer, error) {
 	return customer, nil
 }
 
-// FindByUserId searches a customer by their unique ID
-func (r Repository) FindByUserId(customerId uuid.UUID) (models.Customer, error) {
+// FindCustomerByUserId searches a customer by their unique ID
+func (r Repository) FindCustomerByUserId(customerId uuid.UUID) (models.Customer, error) {
 	var customer models.Customer
 	result := r.db.pg.Where(models.Customer{UserId: customerId}).First(&customer)
 	// check if no record found.
@@ -44,7 +44,8 @@ func (r Repository) FindByUserId(customerId uuid.UUID) (models.Customer, error) 
 	return customer, nil
 }
 
-func (r Repository) Delete(customer models.Customer) error {
+// DeleteCustomer deletes a specified customer from the database
+func (r Repository) DeleteCustomer(customer models.Customer) error {
 	err := r.db.pg.Delete(&customer).Error
 	if err != nil {
 		return fmt.Errorf("customer could not be deleted %w", err)
