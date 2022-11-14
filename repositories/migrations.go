@@ -2,11 +2,10 @@ package repositories
 
 import (
 	"github.com/prometheus/common/log"
-	"gorm.io/gorm"
 	"simple-bank-account/models"
 )
 
-func (d *DatabaseHandler) Migrate(pg *gorm.DB) error {
+func (d *DatabaseHandler) Migrate() error {
 	log.Info("running db migrations")
 	err := d.pg.AutoMigrate(models.Customer{}, models.Account{}, models.Card{})
 	if err != nil {

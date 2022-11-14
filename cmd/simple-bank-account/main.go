@@ -42,8 +42,8 @@ func (s *Service) Run() error {
 	//Set up database
 	dbHandler := repositories.NewDatabaseHandler(pgDb)
 
-	//Run repositories migrations
-	err = dbHandler.Migrate(pgDb)
+	//Run database migrations
+	err = dbHandler.Migrate()
 	if err != nil {
 		return fmt.Errorf("repositories migrations failed: %w", err)
 	}
