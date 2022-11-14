@@ -21,3 +21,9 @@ type Customer struct {
 func (Customer) TableName() string {
 	return "customer"
 }
+
+// BeforeCreate initializes a customer's unique ID
+func (c *Customer) BeforeCreate(tx *gorm.DB) error {
+	c.UserId = uuid.New()
+	return nil
+}

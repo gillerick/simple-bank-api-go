@@ -87,9 +87,7 @@ func (r Repository) UpdateBalance(amount float64, userId uuid.UUID) (*models.Acc
 
 // InitializeAccount initializes and returns a new account
 func InitializeAccount(userId uuid.UUID) models.Account {
-	accountId := uuid.New()
 	return models.Account{
-		Id:               accountId,
 		AvailableBalance: 0,
 		UserId:           userId,
 	}

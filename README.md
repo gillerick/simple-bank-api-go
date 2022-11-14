@@ -80,11 +80,39 @@ INFO[0000] server listening on address: 127.0.0.1, port: 8080  source="server.go
 Curl request example
 
 ```curl
+curl --location --request POST 'http://localhost:8080/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name": "Gill",
+    "last_name": "Erick",
+    "email": "ogayogill95@gmail.com"
+}'
 ```
 
 Response example
 
 ```json
+{
+  "user_id": "c7e2671e-de09-47ae-8738-81bb4f923261",
+  "first_name": "Gill",
+  "last_name": "Erick",
+  "email": "ogayogill95@gmail.com",
+  "Account": null,
+  "Card": null,
+  "ID": 1,
+  "CreatedAt": "2022-11-14T22:33:48.794892+03:00",
+  "UpdatedAt": "2022-11-14T22:33:48.794892+03:00",
+  "DeletedAt": null
+}
+```
+
+Database record
+```
++------------------------------------+----------+---------+---------------------+--+---------------------------------+---------------------------------+----------+
+|user_id                             |first_name|last_name|email                |id|created_at                       |updated_at                       |deleted_at|
++------------------------------------+----------+---------+---------------------+--+---------------------------------+---------------------------------+----------+
+|c7e2671e-de09-47ae-8738-81bb4f923261|Gill      |Erick    |ogayogill95@gmail.com|1 |2022-11-14 19:33:48.794892 +00:00|2022-11-14 19:33:48.794892 +00:00|null      |
++------------------------------------+----------+---------+---------------------+--+---------------------------------+---------------------------------+----------+
 ```
 
 ##### 2. Creating a customer account
