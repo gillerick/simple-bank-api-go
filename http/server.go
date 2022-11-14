@@ -23,7 +23,9 @@ func NewServer(config configs.App, customerHandler, accountHandler, cardHandler 
 	log.Infof("server listening on address: %s, port: %s", config.Host, config.Port)
 	r := mux.NewRouter()
 
-	//ToDo: Setup routes
+	r.HandleFunc("/user", customerHandler.ServeHTTP)
+	r.HandleFunc("/user/account", accountHandler.ServeHTTP)
+	r.HandleFunc("/user/card", cardHandler.ServeHTTP)
 
 	address := fmt.Sprintf("%s:%s", config.Host, config.Port)
 	server := &http.Server{
