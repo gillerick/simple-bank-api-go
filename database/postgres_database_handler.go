@@ -1,4 +1,4 @@
-package postgres
+package database
 
 import (
 	"errors"
@@ -72,4 +72,8 @@ func InitializeAccount(userId uuid.UUID) models.Account {
 		UserId:           userId,
 	}
 
+}
+
+func NewDatabaseHandler(db *gorm.DB) *DatabaseHandler {
+	return &DatabaseHandler{pg: db}
 }

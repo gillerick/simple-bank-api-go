@@ -6,7 +6,7 @@ import (
 	"simple-bank-account/models"
 )
 
-type Repository interface {
+type DataStore interface {
 	CreateAccount(userId uuid.UUID, firstName string, LastName string) (*models.Account, error)
 	WithdrawAmount(amount float64)
 	DepositAmount(amount float64)
@@ -18,18 +18,18 @@ type Repository interface {
 //}
 
 type AccountService struct {
-	repository Repository
+	repository DataStore
 }
 
 type CustomerService struct {
-	repository Repository
+	repository DataStore
 }
 
-func NewCustomerService(repository Repository) *CustomerService {
+func NewCustomerService(repository DataStore) *CustomerService {
 	return &CustomerService{repository: repository}
 }
 
-func NewAccountService(repository Repository) *AccountService {
+func NewAccountService(repository DataStore) *AccountService {
 	return &AccountService{repository: repository}
 }
 

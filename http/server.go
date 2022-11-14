@@ -15,6 +15,7 @@ func (s *Server) Run() error {
 	return s.httpServer.ListenAndServe()
 }
 
+// NewServer sets up a new server using the specified configurations
 func NewServer() *Server {
 	//log.Info("server started")
 	r := mux.NewRouter()
