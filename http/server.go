@@ -24,8 +24,8 @@ func NewServer(config configs.App, customerHandler, accountHandler, cardHandler 
 	r := mux.NewRouter()
 
 	r.HandleFunc("/user", customerHandler.ServeHTTP)
-	r.HandleFunc("/user/account", accountHandler.ServeHTTP)
-	r.HandleFunc("/user/card", cardHandler.ServeHTTP)
+	r.HandleFunc("/user/{userId}/account", accountHandler.ServeHTTP)
+	r.HandleFunc("/user/{userId}/card", cardHandler.ServeHTTP)
 
 	address := fmt.Sprintf("%s:%s", config.Host, config.Port)
 	server := &http.Server{
