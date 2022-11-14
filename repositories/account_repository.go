@@ -8,15 +8,14 @@ import (
 )
 
 type AccountRepository interface {
-	CreateAccount(userId uuid.UUID) (*models.Account, error)
+	CreateAccount(userId uuid.UUID, accountType models.AccountType) (*models.Account, error)
 	WithdrawFromAccount(userId uuid.UUID, amount float64) (float64, error)
 	TopUpAccount(userId uuid.UUID, amount float64) (float64, error)
-	//UpdateBalance(amount float64, userId uuid.UUID) (*models.Account, error)
 }
 
-func (r Repository) CreateAccount(userId uuid.UUID) (*models.Account, error) {
-	newAccount := InitializeAccount(userId)
-	err := r.db.pg.Model(&models.Account{}).FirstOrCreate(&newAccount)
+func (r Repository) CreateAccount(userId uuid.UUID, accountType models.AccountType) (*models.Account, error) {
+	newAccount := InitializeAccount(userId, accountType)
+	err := r.db.pg.Model(&models.Account{}).FirstOrCreate(&newAccount).Error
 	if err != nil {
 		return nil, fmt.Errorf("error creating user account %v", err)
 	}
@@ -86,8 +85,9 @@ func (r Repository) UpdateBalance(amount float64, userId uuid.UUID) (*models.Acc
 }
 
 // InitializeAccount initializes and returns a new account
-func InitializeAccount(userId uuid.UUID) models.Account {
+func InitializeAccount(userId uuid.UUID, accountType models.AccountType) models.Account {
 	return models.Account{
+		Type:             accountType,
 		AvailableBalance: 0,
 		UserId:           userId,
 	}

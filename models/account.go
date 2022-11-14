@@ -6,26 +6,32 @@ import (
 )
 
 type AccountStatus string
+type AccountType string
 
 const (
-	StatusActive            = AccountStatus("ACTIVE")
-	StatusInactive          = AccountStatus("INACTIVE")
-	StatusSuspended         = AccountStatus("SUSPENDED")
+	StatusActive    = AccountStatus("ACTIVE")
+	StatusInactive  = AccountStatus("INACTIVE")
+	StatusSuspended = AccountStatus("SUSPENDED")
+	CurrentAccount  = AccountType("CURRENT")
+	SavingsAccount  = AccountType("SAVINGS")
+
 	MinimumWithdrawalAmount = 50 // Least amount that can be withdrawn from an account
 	MinimumTopUpAmount      = 5  //Least amount that can be deposited into an account
 )
 
-// Account entity definition
+// Account entity definition. It has a composite primary key of UserId, Status & Type.
+// This allows us to have multiple accounts of different types and status for the same customer
 type Account struct {
-	Status           AccountStatus `gorm:"not null;default:ACTIVE"`
+	Type             AccountType   `json:"account_type" gorm:"primaryKey"`
+	Status           AccountStatus `gorm:"not null;default:ACTIVE;primaryKey"`
 	AvailableBalance float64
-	UserId           uuid.UUID
+	UserId           uuid.UUID `gorm:"primaryKey"`
 
 	gorm.Model
 }
 
 func (Account) TableName() string {
-	return "account"
+	return "customer_account"
 }
 
 // Credit adds a specified amount to the account and returns the available balance

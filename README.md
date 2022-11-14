@@ -93,7 +93,7 @@ Response example
 
 ```json
 {
-  "user_id": "c7e2671e-de09-47ae-8738-81bb4f923261",
+  "user_id": "54b819af-bc4d-442d-a361-a917adb6173a",
   "first_name": "Gill",
   "last_name": "Erick",
   "email": "ogayogill95@gmail.com",
@@ -106,22 +106,96 @@ Response example
 }
 ```
 
-Database record
+Database record(s)
+
 ```
 +------------------------------------+----------+---------+---------------------+--+---------------------------------+---------------------------------+----------+
 |user_id                             |first_name|last_name|email                |id|created_at                       |updated_at                       |deleted_at|
 +------------------------------------+----------+---------+---------------------+--+---------------------------------+---------------------------------+----------+
-|c7e2671e-de09-47ae-8738-81bb4f923261|Gill      |Erick    |ogayogill95@gmail.com|1 |2022-11-14 19:33:48.794892 +00:00|2022-11-14 19:33:48.794892 +00:00|null      |
+|54b819af-bc4d-442d-a361-a917adb6173a|Gill      |Erick    |ogayogill95@gmail.com|1 |2022-11-14 19:33:48.794892 +00:00|2022-11-14 19:33:48.794892 +00:00|null      |
 +------------------------------------+----------+---------+---------------------+--+---------------------------------+---------------------------------+----------+
 ```
 
-##### 2. Creating a customer account
+##### 2. Creating a customer account without specifying account type
+
+###### 2.1. `CURRENT` account type creation
+
+Request example
 
 ```curl
+curl --location --request POST 'http://localhost:8080/user/54b819af-bc4d-442d-a361-a917adb6173a/account' \
+--data-raw '{
+    "account_type":"CURRENT"
+}'
 ```
 
 Response example
 
 ```json
+{
+  "account_type": "CURRENT",
+  "Status": "ACTIVE",
+  "AvailableBalance": 0,
+  "UserId": "43e81839-a159-4979-badf-cd0a96e3473c",
+  "ID": 1,
+  "CreatedAt": "2022-11-14T22:55:46.292318+03:00",
+  "UpdatedAt": "2022-11-14T22:55:46.292318+03:00",
+  "DeletedAt": null
+}
 ```
+
+###### 2.2. `SAVINGS` account type creation
+
+Request example
+
+```curl
+curl --location --request POST 'http://localhost:8080/user/54b819af-bc4d-442d-a361-a917adb6173a/account' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "account_type":"SAVINGS"
+}'
+```
+
+Response example
+
+```json
+{
+  "account_type": "SAVINGS",
+  "Status": "ACTIVE",
+  "AvailableBalance": 0,
+  "UserId": "54b819af-bc4d-442d-a361-a917adb6173a",
+  "ID": 2,
+  "CreatedAt": "2022-11-14T23:17:13.975603+03:00",
+  "UpdatedAt": "2022-11-14T23:17:13.975603+03:00",
+  "DeletedAt": null
+}
+```
+
+###### 2.3. Attempting to create a repeat account
+
+Request example
+
+```curl
+curl --location --request POST 'http://localhost:8080/user/54b819af-bc4d-442d-a361-a917adb6173a/account' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "account_type":"SAVINGS"
+}'
+```
+
+This will return with the current `SAVINGS` account for user `54b819af-bc4d-442d-a361-a917adb6173a` with no additional
+account created in the database.
+
+Database records(s)
+
+```
++-------+------+-----------------+------------------------------------+--+---------------------------------+---------------------------------+----------+
+|type   |status|available_balance|user_id                             |id|created_at                       |updated_at                       |deleted_at|
++-------+------+-----------------+------------------------------------+--+---------------------------------+---------------------------------+----------+
+|SAVINGS|ACTIVE|0                |54b819af-bc4d-442d-a361-a917adb6173a|2 |2022-11-14 20:17:13.975603 +00:00|2022-11-14 20:17:13.975603 +00:00|null      |
+|CURRENT|ACTIVE|0                |54b819af-bc4d-442d-a361-a917adb6173a|3 |2022-11-14 20:17:27.548399 +00:00|2022-11-14 20:17:27.548399 +00:00|null      |
++-------+------+-----------------+------------------------------------+--+---------------------------------+---------------------------------+----------+
+```
+
+
 
