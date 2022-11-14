@@ -5,8 +5,16 @@ import (
 	"gorm.io/gorm"
 )
 
+type AccountStatus string
+
+const (
+	StatusActive   = AccountStatus("ACTIVE")
+	StatusInactive = AccountStatus("INACTIVE")
+)
+
 type Account struct {
 	Id               uuid.UUID
+	Status           AccountStatus
 	AvailableBalance float64
 	UserId           uuid.UUID
 
