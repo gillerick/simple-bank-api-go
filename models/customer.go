@@ -15,7 +15,7 @@ type Customer struct {
 	Account   []Account `gorm:"foreignKey:user_id;references:user_id"`
 	Card      []Card    `gorm:"foreignKey:user_id;references:user_id"`
 
-	gorm.Model
+	gorm.Model // embeds created_at, updated_at, deleted_at
 }
 
 func (Customer) TableName() string {

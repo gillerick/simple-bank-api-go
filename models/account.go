@@ -27,7 +27,7 @@ type Account struct {
 	AvailableBalance float64
 	UserId           uuid.UUID `gorm:"primaryKey"`
 
-	gorm.Model
+	gorm.Model // embeds created_at, updated_at, deleted_at
 }
 
 func (Account) TableName() string {

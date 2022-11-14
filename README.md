@@ -18,11 +18,11 @@ and multiple Debit/Credit card numbers. The service supports account top-ups and
   responsibility is to represent a customer's bank account details and status (3) **A Customer Card** whose main
   responsibility
   is to represent a customer's bank cards
-- The service uses a `PostgreSQL` database for data persistence and has three tables (entities): (1) customer (2)
-  account (3) customer_card
+- The service uses a `PostgreSQL` database for data persistence and has three tables (entities): (1) _customer_ table (2)
+  _customer_account_ table (3) _customer_card_ table
 - The relationship between the three entities is as shown below:
 
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 ### Installation, Building & Testing
 
