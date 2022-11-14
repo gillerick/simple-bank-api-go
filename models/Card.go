@@ -1,11 +1,15 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Card struct {
 	FirstName  string
 	LastName   string
 	CardNumber string
+	UserId     uuid.UUID
 	gorm.Model
 }
 
