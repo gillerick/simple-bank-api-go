@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 	"simple-bank-account/configs"
+	"simple-bank-account/controllers"
 	"simple-bank-account/database"
 	"simple-bank-account/http"
 	"simple-bank-account/repositories"
@@ -32,28 +33,38 @@ func (s *Service) Run() error {
 	ymlConfig := configs.ReadYaml("")
 	config := configs.GetConfig(*ymlConfig)
 
-	//Setup a database repositories connection
+	//Setup a database connection
 	pgDb, err := database.NewConnection(config.DB)
 	if err != nil {
 		log.Fatal("could not establish connection with the repositories")
 	}
 
-	//Setup repositories
-	database := repositories.NewDatabaseHandler(pgDb)
+	//Set up database
+	dbHandler := repositories.NewDatabaseHandler(pgDb)
 
 	//Run repositories migrations
-	err = database.Migrate(pgDb)
+	err = dbHandler.Migrate(pgDb)
 	if err != nil {
 		return fmt.Errorf("repositories migrations failed: %w", err)
 	}
 
+	//Set up repositories
+	customerRepository := repositories.NewCustomerRepository(dbHandler)
+	accountRepository := repositories.NewAccountRepository(dbHandler)
+	cardRepository := repositories.NewCardRepository(dbHandler)
+
 	//Setup services
-	//ToDo: Inject repository into services
-	accountService := services.NewAccountService(database)
-	customerService := services.NewCustomerService()
+	customerService := services.NewCustomerService(customerRepository)
+	accountService := services.NewAccountsService(accountRepository)
+	cardService := services.NewCardService(cardRepository)
 
 	//Set up HTTP handler and router
-	s.HttpServer = http.NewServer(config.App)
+	customerHandler := controllers.NewCustomerController(*customerService)
+	accountHandler := controllers.NewAccountsController(*accountService)
+	cardHandler := controllers.NewCardController(*cardService)
+
+	//Initialize server
+	s.HttpServer = http.NewServer(config.App, customerHandler, accountHandler, cardHandler)
 
 	//Start the HTTP handler
 	s.HttpServer.Run()

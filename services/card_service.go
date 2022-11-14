@@ -15,10 +15,6 @@ type SimpleBankCardService interface {
 	DeleteCard(customer models.Card) error
 }
 
-func NewCardService(repository repositories.CardRepository) *CardService {
-	return &CardService{repository: repository}
-}
-
 func (s CardService) SaveCard(card models.Card) (models.Card, error) {
 	savedCard, err := s.repository.SaveCard(card)
 	if err != nil {
@@ -33,4 +29,8 @@ func (s CardService) DeleteCard(card models.Card) error {
 		return fmt.Errorf("card deletion failed with error: %w", err)
 	}
 	return nil
+}
+
+func NewCardService(repository repositories.CardRepository) *CardService {
+	return &CardService{repository: repository}
 }

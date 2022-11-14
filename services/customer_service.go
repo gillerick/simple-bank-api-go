@@ -17,10 +17,6 @@ type SimpleBankCustomerService interface {
 	DeleteCustomer(customer models.Customer) error
 }
 
-func NewCustomerService(repository repositories.CustomerRepository) *CustomerService {
-	return &CustomerService{repository: repository}
-}
-
 func (s CustomerService) SaveCustomer(customer models.Customer) (models.Customer, error) {
 	savedCustomer, err := s.repository.SaveCustomer(customer)
 	if err != nil {
@@ -43,4 +39,8 @@ func (s CustomerService) DeleteCustomer(customer models.Customer) error {
 		return fmt.Errorf("customer deletion failed with error: %w", err)
 	}
 	return nil
+}
+
+func NewCustomerService(repository repositories.CustomerRepository) *CustomerService {
+	return &CustomerService{repository: repository}
 }

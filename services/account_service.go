@@ -17,10 +17,6 @@ type SimpleBankAccountsService interface {
 	TopUpAccount(userId uuid.UUID, amount float64) (float64, error)
 }
 
-func NewAccountsService(repository repositories.AccountRepository) *AccountsService {
-	return &AccountsService{repository: repository}
-}
-
 func (s AccountsService) CreateAccount(userId uuid.UUID) (*models.Account, error) {
 	account, err := s.repository.CreateAccount(userId)
 	if err != nil {
@@ -43,4 +39,8 @@ func (s AccountsService) TopUpAccount(userId uuid.UUID, amount float64) (float64
 		return balance, fmt.Errorf("account top-up failed with error: %w", err)
 	}
 	return balance, nil
+}
+
+func NewAccountsService(repository repositories.AccountRepository) *AccountsService {
+	return &AccountsService{repository: repository}
 }

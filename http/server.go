@@ -19,7 +19,7 @@ func (s *Server) Run() error {
 }
 
 // NewServer sets up a new server using the specified configurations
-func NewServer(config configs.App) *Server {
+func NewServer(config configs.App, customerHandler, accountHandler, cardHandler http.Handler) *Server {
 	log.Infof("server listening on address: %s, port: %s", config.Host, config.Port)
 	r := mux.NewRouter()
 

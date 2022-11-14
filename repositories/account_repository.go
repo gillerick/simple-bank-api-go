@@ -11,7 +11,7 @@ type AccountRepository interface {
 	CreateAccount(userId uuid.UUID) (*models.Account, error)
 	WithdrawFromAccount(userId uuid.UUID, amount float64) (float64, error)
 	TopUpAccount(userId uuid.UUID, amount float64) (float64, error)
-	UpdateBalance(amount float64, userId uuid.UUID) (*models.Account, error)
+	//UpdateBalance(amount float64, userId uuid.UUID) (*models.Account, error)
 }
 
 func (r Repository) CreateAccount(userId uuid.UUID) (*models.Account, error) {
