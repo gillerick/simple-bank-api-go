@@ -21,9 +21,21 @@ and multiple Debit/Credit card numbers. The service supports account top-ups and
 - The service uses a `PostgreSQL` database for data persistence and has three tables (entities): (1) _customer_ table (2)
   _customer_account_ table (3) _customer_card_ table
 - The relationship between the three entities is as shown below:
-- More details of the service architecture and design can be found in the design [document](https://docs.google.com/document/d/1u1FJNDupqOmITXbt6NJswYqu67VOz-SdqxSEi9DMZrc/edit?usp=sharing)
 
-![img_1.png](img_1.png)
+
+![img_1.png](resources/images/img_1.png)
+
+#### Process flows
+##### 1. Customer Creation Process
+![img_3.png](resources/images/img_3.png)
+##### 2. Account Creation Process
+![img_2.png](resources/images/img_2.png)
+##### 3. Account Withdrawal Process
+![img_5.png](resources/images/img_5.png)
+##### 4. Account Top-up Process
+![img_4.png](resources/images/img_4.png)
+
+- More details of the service architecture and design can be found in the design [document](https://docs.google.com/document/d/1u1FJNDupqOmITXbt6NJswYqu67VOz-SdqxSEi9DMZrc/edit?usp=sharing)
 
 ### Installation, Building & Testing
 
