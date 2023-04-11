@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
+	"github.com/google/uuid"
+	"github.com/gorilla/mux"
 	"github.com/prometheus/common/log"
 	"net/http"
 	"simple-bank-account/models"
@@ -18,7 +20,7 @@ func (c CustomerController) ServeHTTP(writer http.ResponseWriter, request *http.
 		http.Error(writer, "bad user input", http.StatusBadRequest)
 	}
 
-	//Routes all POST requests to the createAccount service method
+	//Routes all POST requests to the saveCustomer service method
 	if request.Method == http.MethodPost {
 		var customer models.Customer
 
@@ -41,6 +43,25 @@ func (c CustomerController) ServeHTTP(writer http.ResponseWriter, request *http.
 			http.Error(writer, "json encoding failed", http.StatusUnprocessableEntity)
 		}
 		return
+	}
+
+	//Retrieves customerId path parameter from the http request
+	customerId := mux.Vars(request)["customerId"]
+	if request.Method == http.MethodGet {
+		retrievedCustomer, err := c.customerService.FindCustomerByUserId(uuid.MustParse(customerId))
+		if err != nil {
+			http.Error(writer, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		log.Infof("retrieving customer details for customer id: %s", customerId)
+
+		err = json.NewEncoder(writer).Encode(retrievedCustomer)
+		if err != nil {
+			http.Error(writer, "json encoding failed", http.StatusUnprocessableEntity)
+		}
+		return
+
 	}
 
 }
