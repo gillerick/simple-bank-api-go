@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 type AccountStatus string
@@ -26,6 +27,8 @@ type Account struct {
 	Status           AccountStatus `gorm:"not null;default:ACTIVE;primaryKey"`
 	AvailableBalance float64
 	UserId           uuid.UUID `gorm:"primaryKey"`
+	CreatedAt        time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdatedAt        time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 
 	gorm.Model // embeds created_at, updated_at, deleted_at
 }

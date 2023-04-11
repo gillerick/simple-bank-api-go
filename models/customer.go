@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 // Customer entity definition
@@ -14,8 +15,8 @@ type Customer struct {
 	Email     string    `gorm:"not null;unique" json:"email"`
 	Accounts  []Account `gorm:"foreignKey:user_id;references:user_id"`
 	Cards     []Card    `gorm:"foreignKey:user_id;references:user_id"`
-
-	gorm.Model // embeds created_at, updated_at, deleted_at
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
 
 func (Customer) TableName() string {

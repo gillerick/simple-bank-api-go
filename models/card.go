@@ -4,6 +4,7 @@ import (
 	"github.com/ggwhite/go-masker"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
+	"time"
 )
 
 // Card entity definition. It has a composite primary key of CardId, CardNumber and UserId, allowing a single user to
@@ -14,7 +15,8 @@ type Card struct {
 	ExpiryDate   string
 	CardNumber   string    `gorm:"primaryKey"`
 	UserId       uuid.UUID `gorm:"type:uuid;primaryKey"`
-	gorm.Model             // embeds created_at, updated_at, deleted_at
+	CreatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
 
 func (Card) TableName() string {
